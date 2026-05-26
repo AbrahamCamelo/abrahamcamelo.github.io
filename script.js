@@ -10,8 +10,8 @@ const applyTheme = (theme) => {
   }
 
   const isDark = theme === "dark";
-  toggle.textContent = isDark ? "Light" : "Dark";
   toggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+  toggle.setAttribute("title", isDark ? "Switch to light mode" : "Switch to dark mode");
 };
 
 const getPreferredTheme = () => {

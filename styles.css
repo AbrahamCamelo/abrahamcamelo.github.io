@@ -1,5 +1,5 @@
 :root {
-  --bg: #f7f6f3;
+  --bg: #ffffff;
   --surface: #ffffff;
   --text: #111111;
   --muted: #666666;
@@ -55,7 +55,7 @@ h3 {
 }
 
 .container {
-  width: min(calc(100% - 2rem), var(--container));
+  width: min(calc(100% - 5rem), var(--container));
   margin: 0 auto;
 }
 
@@ -128,6 +128,46 @@ h3 {
 .theme-toggle {
   cursor: pointer;
   font: inherit;
+  width: 42px;
+  padding: 0;
+}
+
+.theme-icon {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+}
+
+.theme-icon::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 8px;
+  height: 4px;
+  border: 2px solid currentColor;
+  border-top: 0;
+  border-radius: 0 0 3px 3px;
+  transform: translateX(-50%);
+}
+
+.theme-icon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 3px;
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid currentColor;
+  border-left: 2px solid currentColor;
+  border-radius: 999px 0 0 0;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+[data-theme="dark"] .theme-icon {
+  box-shadow: 0 0 0 2px transparent, 0 0 10px rgba(243, 242, 239, 0.18);
 }
 
 .hero,
@@ -136,13 +176,13 @@ h3 {
 }
 
 .hero {
-  padding: 2rem 0 1rem;
+  padding: 3rem 0 2rem;
 }
 
 .hero-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.5fr) 240px;
-  gap: 3rem;
+  gap: 4rem;
   align-items: start;
 }
 
@@ -170,11 +210,11 @@ h3 {
 
 .hero-subtitle {
   max-width: 42rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .hero-block + .hero-block {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
 }
 
 .hero-block h2,
@@ -210,7 +250,7 @@ h3 {
 }
 
 .section {
-  padding: 1.5rem 0;
+  padding: 2.5rem 0;
 }
 
 .section-title {
@@ -222,7 +262,7 @@ h3 {
 .content-grid {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  gap: 2rem;
+  gap: 3rem;
 }
 
 .content-column {
@@ -233,7 +273,7 @@ h3 {
 .stack,
 .footer-links {
   display: grid;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .cards-2 {
@@ -281,7 +321,16 @@ h3 {
 }
 
 .site-footer {
-  padding: 1rem 0 2rem;
+  padding: 2rem 0 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.footer-contact {
+  padding-bottom: 2rem;
+}
+
+.footer-contact .section-title {
+  margin-bottom: 0.9rem;
 }
 
 .footer-inner {
@@ -289,8 +338,8 @@ h3 {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  border-top: 1px solid var(--border);
   padding-top: 1rem;
+  border-top: 1px solid var(--border);
 }
 
 .footer-inner p {
@@ -311,6 +360,10 @@ h3 {
 }
 
 @media (max-width: 760px) {
+  .container {
+    width: min(calc(100% - 2rem), var(--container));
+  }
+
   .header-inner {
     grid-template-columns: 1fr;
     justify-items: start;
