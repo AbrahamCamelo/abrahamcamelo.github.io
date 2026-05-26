@@ -1,43 +1,34 @@
-const header = document.querySelector(".site-header");
-const navToggle = document.querySelector(".nav-toggle");
-const nav = document.querySelector(".site-nav");
-const navLinks = document.querySelectorAll(".site-nav a");
+const root = document.documentElement;
+const toggle = document.querySelector(".theme-toggle");
+const storageKey = "portfolio-theme";
 
-if (header && navToggle && nav) {
-  const closeNav = () => {
-    header.classList.remove("nav-open");
-    navToggle.setAttribute("aria-expanded", "false");
-    navToggle.setAttribute("aria-label", "Open navigation");
-  };
+const applyTheme = (theme) => {
+  root.setAttribute("data-theme", theme);
 
-  const openNav = () => {
-    header.classList.add("nav-open");
-    navToggle.setAttribute("aria-expanded", "true");
-    navToggle.setAttribute("aria-label", "Close navigation");
-  };
+  if (!toggle) {
+    return;
+  }
 
-  navToggle.addEventListener("click", () => {
-    const isOpen = header.classList.contains("nav-open");
-    if (isOpen) {
-      closeNav();
-    } else {
-      openNav();
-    }
-  });
+  const isDark = theme === "dark";
+  toggle.textContent = isDark ? "Light" : "Dark";
+  toggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+};
 
-  navLinks.forEach((link) => {
-    link.addEventListener("click", closeNav);
-  });
+const getPreferredTheme = () => {
+  const savedTheme = localStorage.getItem(storageKey);
+  if (savedTheme === "light" || savedTheme === "dark") {
+    return savedTheme;
+  }
 
-  document.addEventListener("click", (event) => {
-    if (!header.contains(event.target)) {
-      closeNav();
-    }
-  });
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+};
 
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closeNav();
-    }
+applyTheme(getPreferredTheme());
+
+if (toggle) {
+  toggle.addEventListener("click", () => {
+    const nextTheme = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    localStorage.setItem(storageKey, nextTheme);
+    applyTheme(nextTheme);
   });
 }
